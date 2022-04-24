@@ -60,4 +60,17 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  # アプリケーション側からリクエスト時のCORSへのサポート
+  # flutter run --web-port 8080でポート番号を8080に指定して起動すること
+  config.middleware.use Rack::Cors do
+    allow do
+      origins 'localhost:8080', '127.0.0.1:8080'
+      resource '*',
+               headers: :any,
+               expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+               methods: [:get, :post, :options, :delete, :put],
+               credentials: true
+    end
+  end
 end

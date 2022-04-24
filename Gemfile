@@ -9,15 +9,18 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 # CORS対応
-gem "rack-cors"
+gem 'rack-cors'
 # ログ出力をアップデート
-gem "amazing_print", '~> 1.4'
-gem "rails_semantic_logger", '~> 4.10'
-# SessionStoreをRedisに設定
-gem "redis-session-store"
+gem 'amazing_print', '~> 1.4'
+gem 'rails_semantic_logger', '~> 4.10'
+
 # ログイン認証
-gem "devise", '~> 4.8'
-gem "devise_token_auth", "~> 1.2"
+gem 'devise', '~> 4.8'
+gem 'devise_token_auth', '~> 1.2'
+
+# Ruby 3.1系でnet-smtp外部化の影響に対する対策
+# https://qiita.com/jnchito/items/4ef331281f0050428716
+gem 'net-smtp'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
