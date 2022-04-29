@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 2022_04_24_074447) do
   create_table "assigned_curriculums", force: :cascade do |t|
     t.bigint "curriculum_id"
     t.bigint "user_id", comment: "カリキュラムを割り当てられた従業員のID"
-    t.datetime "start_datetime"
-    t.datetime "end_datetime"
+    t.datetime "start_datetime", null: false
+    t.datetime "end_datetime", null: false
     t.boolean "completed", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(version: 2022_04_24_074447) do
   create_table "assigned_missions", force: :cascade do |t|
     t.bigint "set_mission_id"
     t.bigint "user_id", comment: "ミッションを割り当てられた従業員のID"
-    t.datetime "start_datetime"
-    t.datetime "end_datetime"
+    t.datetime "start_datetime", null: false
+    t.datetime "end_datetime", null: false
     t.boolean "completed", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 2022_04_24_074447) do
   create_table "assigned_tasks", force: :cascade do |t|
     t.bigint "set_task_id"
     t.bigint "user_id", comment: "タスクを割り当てられた従業員のID"
-    t.datetime "start_datetime"
-    t.datetime "end_datetime"
+    t.datetime "start_datetime", null: false
+    t.datetime "end_datetime", null: false
     t.boolean "completed", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(version: 2022_04_24_074447) do
   create_table "attachments", force: :cascade do |t|
     t.string "source_type"
     t.bigint "source_id", comment: "Task, Commentなど複数で利用"
-    t.string "name"
-    t.string "url"
+    t.string "name", null: false
+    t.string "url", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["source_type", "source_id"], name: "index_attachments_on_source"
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 2022_04_24_074447) do
   create_table "comments", force: :cascade do |t|
     t.bigint "assigned_task_id"
     t.bigint "user_id", comment: "コメントをするユーザーのID"
-    t.text "content"
+    t.text "content", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["assigned_task_id"], name: "index_comments_on_assigned_task_id"
@@ -72,10 +72,10 @@ ActiveRecord::Schema.define(version: 2022_04_24_074447) do
   end
 
   create_table "companies", force: :cascade do |t|
-    t.string "name"
-    t.string "zip_code"
-    t.string "prefecture"
-    t.string "city"
+    t.string "name", null: false
+    t.string "zip_code", null: false
+    t.string "prefecture", null: false
+    t.string "city", null: false
     t.string "address_line_1"
     t.string "address_line_2"
     t.string "image_url"
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 2022_04_24_074447) do
 
   create_table "curriculums", force: :cascade do |t|
     t.bigint "company_id", comment: "カリキュラムを登録している企業"
-    t.string "name"
+    t.string "name", null: false
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 2022_04_24_074447) do
 
   create_table "missions", force: :cascade do |t|
     t.bigint "company_id", comment: "ミッションを登録している企業"
-    t.string "name"
+    t.string "name", null: false
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(version: 2022_04_24_074447) do
   create_table "owned_skills", force: :cascade do |t|
     t.bigint "user_id", comment: "スキルを所有しているユーザーのID"
     t.bigint "skill_id"
-    t.integer "point", comment: "スキルの習得率 0〜100点"
+    t.integer "point", default: 0, null: false, comment: "スキルの習得率 0〜100点"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["skill_id"], name: "index_owned_skills_on_skill_id"
@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(version: 2022_04_24_074447) do
   create_table "skill_points", force: :cascade do |t|
     t.bigint "mission_id", comment: "スキルポイントを獲得できるミッションのID"
     t.bigint "skill_id"
-    t.integer "point", comment: "そのミッションを通じて獲得できるスキルのポイント"
+    t.integer "point", default: 0, null: false, comment: "そのミッションを通じて獲得できるスキルのポイント"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["mission_id"], name: "index_skill_points_on_mission_id"
@@ -141,7 +141,7 @@ ActiveRecord::Schema.define(version: 2022_04_24_074447) do
 
   create_table "skills", force: :cascade do |t|
     t.bigint "company_id", comment: "スキルを登録している企業"
-    t.string "name"
+    t.string "name", null: false
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(version: 2022_04_24_074447) do
 
   create_table "tasks", force: :cascade do |t|
     t.bigint "company_id", comment: "タスクを登録している企業"
-    t.string "name"
+    t.string "name", null: false
     t.text "description"
     t.boolean "must_be_submitted", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
