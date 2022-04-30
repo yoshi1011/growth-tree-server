@@ -1,0 +1,2018 @@
+openapi: 3.1.0
+info:
+  title: GrowthTreeAPI V1
+  version: '1.0'
+  description: growth tree api
+  contact:
+    name: yoshi1011
+servers:
+  - url: 'http://localhost:3000/api/v1'
+paths:
+  /curriculums:
+    post:
+      summary: Create curriculum
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Curriculum'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      operationId: post-curriculums
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Curriculum'
+      tags:
+        - Curriculums
+    get:
+      summary: List curriculums
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Curriculum'
+              examples:
+                example:
+                  value:
+                    - id: 1
+                      name: Ruby on RailsでWebアプリケーションを開発できるようになる
+                      description: Ruby on Railsで開発ができるようになり、会社の簡単な業務をこなせるようになる
+                    - id: 2
+                      name: Vue.jsでWebアプリケーションを開発できるようになる
+                      description: Vue.jsで開発ができるようになり、会社の簡単な業務をこなせるようになる
+                    - id: 3
+                      name: Flutterでモバイルアプリケーションを開発できるようになる
+                      description: Flutterで開発ができるようになり、会社の簡単な業務をこなせるようになる
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      operationId: get-curriculums
+      parameters:
+        - schema:
+            type: number
+          in: query
+          name: page
+      tags:
+        - Curriculums
+  '/curriculums/{curriculum_id}':
+    parameters:
+      - schema:
+          type: number
+        name: curriculum_id
+        in: path
+        required: true
+        description: CurriculumのID
+    get:
+      summary: Get curriculum
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Curriculum'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      operationId: get-curriculums-curriculum_id
+      tags:
+        - Curriculums
+    delete:
+      summary: Delete curriculum
+      operationId: delete-curriculums-curriculum_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+              examples:
+                example:
+                  value:
+                    message: Curriculum delete success
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      tags:
+        - Curriculums
+    patch:
+      summary: Update culliculum
+      operationId: patch-curriculums-curriculum_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                example:
+                  value:
+                    message: Curriculu update success
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Curriculum'
+      x-internal: false
+      parameters: []
+      tags:
+        - Curriculums
+  /missions:
+    get:
+      summary: List missions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mission'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      operationId: get-missions
+      parameters:
+        - schema:
+            type: number
+          in: query
+          name: page
+      tags:
+        - Missions
+    post:
+      summary: Create mission
+      operationId: post-missions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mission'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mission'
+      tags:
+        - Missions
+  '/missions/{mission_id}':
+    parameters:
+      - schema:
+          type: number
+        name: mission_id
+        in: path
+        required: true
+    get:
+      summary: Get mission
+      tags:
+        - Missions
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mission'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+      operationId: get-missions-mission_id
+    patch:
+      summary: Update mission
+      operationId: patch-missions-mission_id
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateSuccessfully'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mission'
+      tags:
+        - Missions
+    delete:
+      summary: Delete mission
+      operationId: delete-missions-mission_id
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteSuccessfully'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      tags:
+        - Missions
+  /tasks:
+    get:
+      summary: List tasks
+      tags:
+        - Tasks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      operationId: get-tasks
+      parameters:
+        - schema:
+            type: number
+          in: query
+          name: page
+    post:
+      summary: Create task
+      operationId: post-tasks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      tags:
+        - Tasks
+  '/tasks/{task_id}':
+    parameters:
+      - schema:
+          type: number
+        name: task_id
+        in: path
+        required: true
+    get:
+      summary: Get task
+      tags:
+        - Tasks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      operationId: get-tasks-task_id
+    patch:
+      summary: Update task
+      operationId: patch-tasks-task_id
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateSuccessfully'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      tags:
+        - Tasks
+    delete:
+      summary: Delete task
+      operationId: delete-tasks-task_id
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteSuccessfully'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      tags:
+        - Tasks
+  '/curriculums/{curriculum_id}/assign':
+    post:
+      summary: Assign curriculum to user
+      operationId: post-curriculums-assign
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignedCurriculum'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: number
+                start_datetime:
+                  type: string
+                end_datetime:
+                  type: string
+              required:
+                - user_id
+                - start_datetime
+                - end_datetime
+      tags:
+        - AssignedCurriculums
+    parameters:
+      - schema:
+          type: number
+        name: curriculum_id
+        in: path
+        required: true
+  '/users/{user_id}/curriculums':
+    parameters:
+      - schema:
+          type: number
+        name: user_id
+        in: path
+        required: true
+    get:
+      summary: List assigned curriculums
+      tags:
+        - AssignedCurriculums
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssignedCurriculum'
+      operationId: get-users-user_id-curriculums
+  '/users/{user_id}/curriculums/{curriculum_id}':
+    parameters:
+      - schema:
+          type: number
+        name: user_id
+        in: path
+        required: true
+      - schema:
+          type: number
+        name: curriculum_id
+        in: path
+        required: true
+    get:
+      summary: Get user assigned curriculum
+      tags:
+        - AssignedCurriculums
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignedCurriculum'
+      operationId: get-users-user_id-curriculums-curriculum_id
+    delete:
+      summary: Delete assigned curriculum
+      operationId: delete-users-user_id-curriculums-curriculum_id
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteSuccessfully'
+      tags:
+        - AssignedCurriculums
+  '/users/{user_id}/curriculums/{curriculum_id}/update-schedule':
+    parameters:
+      - schema:
+          type: number
+        name: user_id
+        in: path
+        required: true
+      - schema:
+          type: number
+        name: curriculum_id
+        in: path
+        required: true
+    patch:
+      summary: Update assigned curriculum schedule
+      operationId: patch-users-user_id-curriculums-curriculum_id-update-schedule
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateSuccessfully'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                start_datetime:
+                  type: string
+                end_datetime:
+                  type: string
+              required:
+                - start_datetime
+                - end_datetime
+      tags:
+        - AssignedCurriculums
+  '/users/{user_id}/curriculums/{curriculum_id}/update-completed':
+    parameters:
+      - schema:
+          type: number
+        name: user_id
+        in: path
+        required: true
+      - schema:
+          type: number
+        name: curriculum_id
+        in: path
+        required: true
+    patch:
+      summary: Update assigned curriculum completed
+      operationId: patch-users-user_id-curriculums-curriculum_id-update-completed
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateSuccessfully'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                completed:
+                  type: boolean
+      tags:
+        - AssignedCurriculums
+  '/missions/{mission_id}/set':
+    parameters:
+      - schema:
+          type: string
+        name: mission_id
+        in: path
+        required: true
+    post:
+      summary: Create set mission
+      operationId: post-missions-mission_id-set
+      responses:
+        '200':
+          $ref: '#/components/responses/CreateSuccessfully'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                curriculum_id:
+                  type: number
+      tags:
+        - SetMissions
+  /skills:
+    get:
+      summary: List Skills
+      tags:
+        - Skills
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Skill'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      operationId: get-skills
+    post:
+      summary: Create skill
+      operationId: post-skills
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      tags:
+        - Skills
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Skill'
+  '/skills/{skill_id}':
+    parameters:
+      - schema:
+          type: number
+        name: skill_id
+        in: path
+        required: true
+    get:
+      summary: Get Skill
+      tags:
+        - Skills
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      operationId: get-skills-skill_id
+    patch:
+      summary: Update Skill
+      operationId: patch-skills-skill_id
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateSuccessfully'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Skill'
+      tags:
+        - Skills
+    delete:
+      summary: Delete Skill
+      operationId: delete-skills-skill_id
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteSuccessfully'
+      tags:
+        - Skills
+  '/missions/{mission_id}/skills':
+    parameters:
+      - schema:
+          type: number
+        name: mission_id
+        in: path
+        required: true
+    post:
+      summary: Attach skill to mission
+      operationId: post-missions-mission_id-skills
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SkillPoint'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SkillPoint-input'
+          application/xml:
+            schema:
+              type: object
+              properties:
+                skill_id:
+                  type: number
+                skill:
+                  type: string
+        description: ''
+      description: ミッションへのスキルの割当、および、獲得ポイントの設定を行う
+      tags:
+        - Skills
+  '/missions/{mission_id}/skills/{skill_id}':
+    parameters:
+      - schema:
+          type: number
+        name: mission_id
+        in: path
+        required: true
+      - schema:
+          type: number
+        name: skill_id
+        in: path
+        required: true
+    patch:
+      summary: Update skill point
+      operationId: patch-missions-mission_id-skills-skill_id
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateSuccessfully'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                point:
+                  type: number
+              required:
+                - point
+      description: ミッションに割り当てられているスキルの獲得ポイントを変更
+      tags:
+        - Skills
+    delete:
+      summary: Remove skill from mission
+      operationId: delete-missions-mission_id-skills-skill_id
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteSuccessfully'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      description: Missionに割り当てられているSkillを外す
+      tags:
+        - Skills
+  '/users/{user_id}/skills':
+    parameters:
+      - schema:
+          type: number
+        name: user_id
+        in: path
+        required: true
+    post:
+      summary: Attach skill to user
+      operationId: attach-skill-to-user
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OwnedSkill'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OwnedSkill'
+      description: ユーザーへのスキルの割当、および、取得ポイントの設定を行う
+      tags:
+        - Skills
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OwnedSkill-input'
+  '/users/{user_id}/skills/{skill_id}':
+    parameters:
+      - schema:
+          type: number
+        name: user_id
+        in: path
+        required: true
+      - schema:
+          type: number
+        name: skill_id
+        in: path
+        required: true
+    patch:
+      summary: Update skill
+      operationId: patch-users-user_id-skills-skill_id
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateSuccessfully'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                point:
+                  type: number
+      tags:
+        - Skills
+    delete:
+      summary: Remove skill from user
+      operationId: delete-users-user_id-skills-skill_id
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteSuccessfully'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      tags:
+        - Skills
+  '/missions/{mission_id}/attachments':
+    parameters:
+      - schema:
+          type: number
+        name: mission_id
+        in: path
+        required: true
+    post:
+      summary: Create mission attachment
+      operationId: post-missions-mission_id-attachments
+      responses:
+        '200':
+          $ref: '#/components/responses/CreateSuccessfully'
+      tags:
+        - Attachments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                attachment:
+                  type: string
+  '/missions/{mission_id}/attachments/{attachment_id}':
+    parameters:
+      - schema:
+          type: number
+        name: mission_id
+        in: path
+        required: true
+      - schema:
+          type: number
+        name: attachment_id
+        in: path
+        required: true
+    delete:
+      summary: Delete mission attachment
+      operationId: delete-missions-mission_id-attachments-attachment_id
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteSuccessfully'
+      tags:
+        - Attachments
+    patch:
+      summary: Override mission attachment
+      operationId: patch-missions-mission_id-attachments-attachment_id
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateSuccessfully'
+      tags:
+        - Attachments
+  '/tasks/{task_id}/attachments':
+    parameters:
+      - schema:
+          type: number
+        name: task_id
+        in: path
+        required: true
+    post:
+      summary: Create task attachment
+      operationId: create-task-attachment
+      responses:
+        '200':
+          $ref: '#/components/responses/CreateSuccessfully'
+      tags:
+        - Attachments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                attachment:
+                  type: string
+  '/tasks/{task_id}/attachments/{attachment_id}':
+    parameters:
+      - schema:
+          type: number
+        name: task_id
+        in: path
+        required: true
+      - schema:
+          type: number
+        name: attachment_id
+        in: path
+        required: true
+    delete:
+      summary: Delete task attachment
+      operationId: delete-tasks-task_id-attachments-attachment_id
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteSuccessfully'
+      tags:
+        - Attachments
+    patch:
+      summary: Override task attachment
+      operationId: patch-tasks-task_id-attachments-attachment_id
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateSuccessfully'
+      tags:
+        - Attachments
+  '/comments/{comment_id}/attachments':
+    parameters:
+      - schema:
+          type: number
+        name: comment_id
+        in: path
+        required: true
+    post:
+      summary: Create comment attachment
+      operationId: create-comment-attachment
+      responses:
+        '200':
+          $ref: '#/components/responses/CreateSuccessfully'
+      tags:
+        - Attachments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                attachment:
+                  $ref: '#/components/schemas/Attachment-input'
+  '/comments/{comment_id}/attachments/{attachment_id}':
+    parameters:
+      - schema:
+          type: number
+        name: comment_id
+        in: path
+        required: true
+      - schema:
+          type: number
+        name: attachment_id
+        in: path
+        required: true
+    delete:
+      summary: Delete comment attachment
+      operationId: delete-comments-comment_id-attachments-attachment_id
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteSuccessfully'
+      tags:
+        - Attachments
+    patch:
+      summary: Override comment attachment
+      operationId: patch-comments-comment_id-attachments-attachment_id
+      responses:
+        '200':
+          description: OK
+      tags:
+        - Attachments
+  '/users/{user_id}/tasks/{task_id}/comments':
+    parameters:
+      - schema:
+          type: number
+        name: user_id
+        in: path
+        required: true
+      - schema:
+          type: number
+        name: task_id
+        in: path
+        required: true
+    get:
+      summary: List Comments
+      tags:
+        - Comments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommentDetailDto'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      operationId: get-users-user_id-tasks-task_id-comments
+    post:
+      summary: Create Comment
+      operationId: post-users-user_id-tasks-task_id-comments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentDetailDto'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment-input'
+      tags:
+        - Comments
+  '/users/{user_id}/tasks/{task_id}/comments/{comment_id}':
+    parameters:
+      - schema:
+          type: number
+        name: user_id
+        in: path
+        required: true
+      - schema:
+          type: number
+        name: task_id
+        in: path
+        required: true
+      - schema:
+          type: number
+        name: comment_id
+        in: path
+        required: true
+    get:
+      summary: Get Comment
+      tags:
+        - Comments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommentDetailDto'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      operationId: get-comment
+    patch:
+      summary: Update Comment
+      operationId: patch-users-user_id-tasks-task_id-comments-comment_id
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateSuccessfully'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      tags:
+        - Comments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment-input'
+    delete:
+      summary: Delete Comment
+      operationId: delete-users-user_id-tasks-task_id-comments-comment_id
+      responses:
+        '200':
+          $ref: '#/components/responses/DeleteSuccessfully'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      tags:
+        - Comments
+      description: コメントに添付されているファイルもいっしょに削除する
+  /companies:
+    post:
+      summary: Create company
+      operationId: post-companies
+      tags:
+        - Companies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Company-input'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  '/companies/{company_id}':
+    parameters:
+      - schema:
+          type: number
+        name: company_id
+        in: path
+        required: true
+    get:
+      summary: Get company
+      tags:
+        - Companies
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      operationId: get-companies-company_id
+    patch:
+      summary: Update company
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdateSuccessfully'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+      operationId: patch-companies-company_id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Company-input'
+      tags:
+        - Companies
+  /auth/sign_in:
+    post:
+      summary: Sign in user
+      operationId: post-auth-sign_in
+      responses:
+        '200':
+          $ref: '#/components/responses/SignInSuccessfullyResponse'
+        '401':
+          $ref: '#/components/responses/AuthErrorResponse'
+      tags:
+        - Auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignIn-input'
+      security: []
+  /auth/sign_out:
+    delete:
+      summary: Sign out user
+      operationId: delete-auth-sign_out
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    default: true
+        '404':
+          $ref: '#/components/responses/AuthErrorResponse'
+      tags:
+        - Auth
+  /auth/validate_token:
+    get:
+      summary: Validate token
+      tags:
+        - Auth
+      operationId: get-auth-validate_tokne
+      description: Tokenの有効性をチェック
+      responses:
+        '200':
+          $ref: '#/components/responses/ValidateTokenSuccessfully'
+        '401':
+          $ref: '#/components/responses/AuthErrorResponse'
+    parameters: []
+  /auth:
+    post:
+      summary: Register user
+      operationId: post-auth
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      provider:
+                        type: string
+                      uid:
+                        type: string
+                      allow_password_change:
+                        type: boolean
+                      first_name:
+                        type: string
+                      last_name:
+                        type: 'null'
+                      birthday:
+                        type: 'null'
+                      image_url:
+                        type: 'null'
+                      email:
+                        type: string
+                      role:
+                        type: 'null'
+                      joined_date:
+                        type: 'null'
+                      company_id:
+                        type: integer
+                      manager_id:
+                        type: 'null'
+                      created_at:
+                        type: string
+                      updated_at:
+                        type: string
+                x-examples:
+                  example-1:
+                    status: success
+                    data:
+                      id: 81
+                      provider: email
+                      uid: manager_100@example.com
+                      allow_password_change: false
+                      first_name: test
+                      last_name: null
+                      birthday: null
+                      image_url: null
+                      email: manager_100@example.com
+                      role: null
+                      joined_date: null
+                      company_id: 19
+                      manager_id: null
+                      created_at: '2022-04-30T05:24:17.153Z'
+                      updated_at: '2022-04-30T05:24:17.153Z'
+        '422':
+          description: Unprocessable Entity (WebDAV)
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  example-1:
+                    status: error
+                    data:
+                      id: null
+                      provider: email
+                      uid: ''
+                      allow_password_change: false
+                      first_name: null
+                      last_name: null
+                      birthday: null
+                      image_url: null
+                      email: manager_100@example.com
+                      role: null
+                      joined_date: null
+                      company_id: null
+                      manager_id: null
+                      created_at: null
+                      updated_at: null
+                    errors:
+                      company:
+                        - must exist
+                      full_messages:
+                        - Company must exist
+                properties:
+                  status:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: 'null'
+                      provider:
+                        type: string
+                      uid:
+                        type: string
+                      allow_password_change:
+                        type: boolean
+                      first_name:
+                        type: 'null'
+                      last_name:
+                        type: 'null'
+                      birthday:
+                        type: 'null'
+                      image_url:
+                        type: 'null'
+                      email:
+                        type: string
+                      role:
+                        type: 'null'
+                      joined_date:
+                        type: 'null'
+                      company_id:
+                        type: 'null'
+                      manager_id:
+                        type: 'null'
+                      created_at:
+                        type: 'null'
+                      updated_at:
+                        type: 'null'
+                  errors:
+                    type: object
+                    properties:
+                      object_name:
+                        type: array
+                        items:
+                          type: string
+                      full_messages:
+                        type: array
+                        items:
+                          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignUp-input'
+      security: []
+      tags:
+        - Auth
+  '/auth/confirmation/{config}/{confirmation_token}/{redirect_url}':
+    get:
+      summary: Confirmation user
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: OK(リダイレクト)
+      operationId: get-auth-confirmation
+    parameters:
+      - schema:
+          type: string
+          default: default
+        name: config
+        in: path
+        required: true
+      - schema:
+          type: string
+          example: uofdptvjixJY3Ky64zMh
+        name: confirmation_token
+        in: path
+        required: true
+      - schema:
+          type: string
+          example: 'http://localhost:3000/workspace'
+        name: redirect_url
+        in: path
+        required: true
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      properties:
+        id:
+          type: number
+        email:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        birthday:
+          type: string
+        image_url:
+          type: string
+        role:
+          type: string
+        joined_date:
+          type: string
+      required:
+        - id
+        - email
+        - first_name
+        - last_name
+        - birthday
+        - role
+    Company:
+      title: Company
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        zip_code:
+          type: string
+        prefecture:
+          type: string
+        city:
+          type: string
+        address_line_1:
+          type: string
+        address_line_2:
+          type: string
+        image_url:
+          type: string
+      required:
+        - id
+        - name
+        - zip_code
+        - prefecture
+        - city
+    Comment:
+      title: Comment
+      type: object
+      properties:
+        id:
+          type: number
+        content:
+          type: string
+      required:
+        - id
+        - content
+    CommentDetailDto:
+      title: CommentDetailDto
+      type: object
+      properties:
+        id:
+          type: number
+        content:
+          type: string
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
+      required:
+        - id
+        - content
+    Skill:
+      title: Skill
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - id
+        - name
+    SkillPoint:
+      title: SkillPoint
+      type: object
+      properties:
+        id:
+          type: number
+        point:
+          type: number
+      required:
+        - id
+        - point
+    OwnedSkill:
+      title: OwnedSkill
+      type: object
+      properties:
+        id:
+          type: number
+        point:
+          type: number
+          default: 0
+      required:
+        - id
+        - point
+    Attachment:
+      title: Attachment
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        url:
+          type: string
+      required:
+        - id
+        - name
+        - url
+    Curriculum:
+      title: Curriculum
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - id
+        - name
+      examples:
+        - id: 1
+          name: Ruby on RailsでWebアプリケーションを開発できるようになる
+          description: Ruby on Railsで開発ができるようになり、会社の簡単な業務をこなせるようになる
+    Mission:
+      title: Mission
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - name
+    Task:
+      title: Task
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        description:
+          type: string
+        must_be_submitted:
+          type: boolean
+          default: false
+      required:
+        - id
+        - name
+        - must_be_submitted
+    AssignedCurriculum:
+      title: AssignedCurriculum
+      type: object
+      properties:
+        id:
+          type: number
+        start_datetime:
+          type: string
+        end_datetime:
+          type: string
+        completed:
+          type: boolean
+          default: false
+      required:
+        - id
+        - start_datetime
+        - end_datetime
+        - completed
+    AssignedCurriculumDetailDto:
+      examples:
+        - id: 0
+          name: string
+          description: string
+          missions:
+            - id: 0
+              name: string
+              description: string
+              start_datetime: string
+              end_datetime: string
+              completed: false
+      type: object
+      title: AssignedCurriculumDetailDto
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        description:
+          type: string
+        start_datetime:
+          type: string
+        end_datetime:
+          type: string
+        completed:
+          type: boolean
+      required:
+        - id
+        - name
+        - start_datetime
+        - end_datetime
+        - completed
+      description: CurriculumとAssignedCurriculumとを合わせたデータ
+    AssignedCurriculumDetailWithMissionsDto:
+      examples:
+        - id: 0
+          name: string
+          description: string
+          missions:
+            - id: 0
+              name: string
+              description: string
+              start_datetime: string
+              end_datetime: string
+              completed: false
+      type: object
+      title: AssignedCurriculumDetailDto
+      description: CurriculumとAssignedCurriculumとを合わせたデータ
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        description:
+          type: string
+        start_datetime:
+          type: string
+        end_datetime:
+          type: string
+        completed:
+          type: boolean
+        missions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssignedMissionDetailDto'
+      required:
+        - id
+        - name
+        - start_datetime
+        - end_datetime
+        - completed
+        - missions
+    AssignedMission:
+      title: AssignedMission
+      type: object
+      properties:
+        id:
+          type: number
+        start_datetime:
+          type: string
+        end_datetime:
+          type: string
+        completed:
+          type: boolean
+          default: false
+      required:
+        - id
+        - start_datetime
+        - end_datetime
+        - completed
+    AssignedMissionDetailDto:
+      title: AssignedMissionDetailDto
+      type: object
+      description: SetMissionとAssignedMissionとを合わせたデータ
+      properties:
+        id:
+          type: number
+          description: AssignedMissionのID
+        name:
+          type: string
+        description:
+          type: string
+        start_datetime:
+          type: string
+        end_datetime:
+          type: string
+        completed:
+          type: boolean
+          default: false
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
+      required:
+        - id
+        - name
+        - start_datetime
+        - end_datetime
+        - completed
+    AssignedMissionDetailWithTasksDto:
+      title: AssignedMissionDetailWithTasksDto
+      type: object
+      description: ''
+      properties:
+        id:
+          type: number
+          description: AssignedMissionのID
+        name:
+          type: string
+        description:
+          type: string
+        start_datetime:
+          type: string
+        end_datetime:
+          type: string
+        completed:
+          type: boolean
+          default: false
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssignedTaskDetailDto'
+      required:
+        - id
+        - name
+        - start_datetime
+        - end_datetime
+        - completed
+    AssignedTask:
+      title: AssignedTask
+      type: object
+      properties:
+        id:
+          type: number
+        start_datetime:
+          type: string
+        end_datetime:
+          type: string
+        completed:
+          type: boolean
+          default: false
+      required:
+        - id
+        - start_datetime
+        - end_datetime
+        - completed
+    AssignedTaskDetailDto:
+      title: AssignedTaskDetailDto
+      type: object
+      description: TaskとSetTask、AssignedTaskとを合わせたデータ
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        description:
+          type: string
+        must_be_submitted:
+          type: boolean
+          default: false
+        start_datetime:
+          type: string
+        end_datetime:
+          type: string
+        completed:
+          type: boolean
+          default: false
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Attachment'
+      required:
+        - id
+        - name
+        - must_be_submitted
+        - start_datetime
+        - end_datetime
+        - completed
+    SkillPoint-input:
+      title: SkillPoint input
+      type: object
+      properties:
+        skill_id:
+          type: number
+        point:
+          type: number
+      required:
+        - skill_id
+        - point
+    OwnedSkill-input:
+      title: OwnedSkill input
+      type: object
+      properties:
+        skill_id:
+          type: number
+        point:
+          type: number
+      required:
+        - skill_id
+        - point
+    Comment-input:
+      title: Comment-input
+      type: object
+      properties:
+        content:
+          type: string
+        attachments:
+          type: array
+          maxItems: 5
+          items:
+            $ref: '#/components/schemas/Attachment-input'
+      required:
+        - content
+    Attachment-input:
+      title: Attachment-input
+      type: object
+      properties:
+        attachment:
+          type: string
+      required:
+        - attachment
+    Company-input:
+      title: Company-input
+      type: object
+      properties:
+        name:
+          type: string
+        zip_code:
+          type: string
+        prefecture:
+          type: string
+        city:
+          type: string
+        address_line_1:
+          type: string
+        address_line_2:
+          type: string
+        image_url:
+          type: string
+          description: アップロード時に別APIでURLを生成しておく
+      required:
+        - name
+        - zip_code
+        - prefecture
+        - city
+    SignIn-input:
+      title: SignIn-input
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    SignUp-input:
+      title: SignUp-input
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        password_confirmation:
+          type: string
+      required:
+        - email
+        - password
+        - password_confirmation
+  securitySchemes:
+    access-token:
+      type: http
+      scheme: bearer
+      description: ''
+    client:
+      type: http
+      scheme: bearer
+    uid:
+      type: http
+      scheme: bearer
+    expiry:
+      type: http
+      scheme: bearer
+  parameters: {}
+  responses:
+    Unauthorized:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Unauthorized.
+            required:
+              - message
+          examples: {}
+    NotFound:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: not found.
+            required:
+              - message
+    Forbidden:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Forbidden.
+    UpdateSuccessfully:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: update successfully
+            required:
+              - message
+    DeleteSuccessfully:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: delete successfully
+            required:
+              - message
+    CreateSuccessfully:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: create success.
+            required:
+              - message
+    SignInSuccessfullyResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  email:
+                    type: string
+                  uid:
+                    type: string
+                  id:
+                    type: number
+                  provider:
+                    type: string
+                  allow_password_change:
+                    type: string
+                  first_name:
+                    type: string
+                  last_name:
+                    type: string
+                  birthday:
+                    type: string
+                  image_url:
+                    type: string
+                  role:
+                    type: number
+                  joined_date:
+                    type: string
+                  company_id:
+                    type: integer
+                  manager_id:
+                    type:
+                      - 'null'
+                      - number
+      headers:
+        token-type:
+          schema:
+            type: string
+            default: Bearer
+        access-token:
+          schema:
+            type: string
+            example: hf_rwxYXh-LbKXpULc1yLw
+        client:
+          schema:
+            type: string
+            example: KelnFDqESiLEvIqYqncLWQ
+        uid:
+          schema:
+            type: string
+            example: manager_1@example.com
+        expiry:
+          schema:
+            type: number
+            example: '1653703454'
+    ValidateTokenSuccessfully:
+      description: ''
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              data:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  provider:
+                    type: string
+                  uid:
+                    type: string
+                  allow_password_change:
+                    type: boolean
+                  first_name:
+                    type: string
+                  last_name:
+                    type: string
+                  birthday:
+                    type: string
+                  image_url:
+                    type: 'null'
+                  email:
+                    type: string
+                  role:
+                    type: integer
+                  joined_date:
+                    type: 'null'
+                  company_id:
+                    type: integer
+                  manager_id:
+                    type: 'null'
+    AuthErrorResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+              errors:
+                type: array
+                items:
+                  type: string
+            x-examples:
+              example-1:
+                success: false
+                errors:
+                  - Invalid login credentials
+  requestBodies: {}
+security:
+  - access-token: []
+  - client: []
+  - uid: []
+  - expiry: []
