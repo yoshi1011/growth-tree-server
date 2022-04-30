@@ -173,12 +173,12 @@ ActiveRecord::Schema.define(version: 2022_04_24_074447) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
-    t.string "first_name"
-    t.string "last_name"
-    t.date "birthday"
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.date "birthday", null: false
     t.string "image_url"
-    t.string "email"
-    t.integer "role", comment: "Manager, Employeeなどを区別するための項目"
+    t.string "email", null: false
+    t.integer "role", default: 0, null: false, comment: "Manager, Employeeなどを区別するための項目"
     t.date "joined_date", comment: "入社日"
     t.json "tokens"
     t.bigint "company_id"
@@ -214,5 +214,6 @@ ActiveRecord::Schema.define(version: 2022_04_24_074447) do
   add_foreign_key "skill_points", "skills"
   add_foreign_key "skills", "companies"
   add_foreign_key "tasks", "companies"
+  add_foreign_key "users", "companies"
   add_foreign_key "users", "users", column: "manager_id"
 end
