@@ -12,6 +12,10 @@ class InitSchema < ActiveRecord::Migration[6.1]
       t.timestamps
     end
     create_table :curriculums do |t|
+      # あらかじめ作成しておくカリキュラムの骨組み
+      # 一度作成しておくことでユーザーに簡単に割り当てられる仕組み
+      # ユーザーの進捗に影響が出るため、AssignedCurriculumsでの割り当て後の変更はできず、
+      # コピーなどで分割する必要がある(添付ファイルは追加可能)
       t.references :company, foreign_key: true, comment: "カリキュラムを登録している企業"
       t.string :name, null: false
       t.text :description
@@ -29,6 +33,10 @@ class InitSchema < ActiveRecord::Migration[6.1]
       t.timestamps
     end
     create_table :missions do |t|
+      # あらかじめ作成しておくミッションの骨組み
+      # 一度作成しておくことでカリキュラムに割り当てられる仕組みで、複数のカリキュラムに割り当て可能
+      # ユーザーの進捗に影響が出るため、AssignedMissionでの割り当て後にミッション内容の変更はできず、
+      # コピーなどで分割する必要がある(添付ファイルは追加可能)
       t.references :company, foreign_key: true, comment: "ミッションを登録している企業"
       t.string :name, null: false
       t.text :description
@@ -55,6 +63,10 @@ class InitSchema < ActiveRecord::Migration[6.1]
       t.timestamps
     end
     create_table :tasks do |t|
+      # あらかじめ作成しておくタスクの骨組み
+      # 一度作成しておくことでミッションに割り当てられる仕組みで、複数のミッションに割り当て可能
+      # ユーザーの進捗に影響が出るため、AssignedTaskでの割り当て後にタスク内容の変更はできず、
+      # コピーなどで分割する必要がある。(添付ファイルは追加可能)
       t.references :company, foreign_key: true, comment: "タスクを登録している企業"
       t.string :name, null: false
       t.text :description
