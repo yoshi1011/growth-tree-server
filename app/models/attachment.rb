@@ -5,9 +5,9 @@
 # Table name: attachments
 #
 #  id                                     :bigint           not null, primary key
-#  name                                   :string
+#  name                                   :string           not null
 #  source_type                            :string
-#  url                                    :string
+#  url                                    :string           not null
 #  created_at                             :datetime         not null
 #  updated_at                             :datetime         not null
 #  source_id(Task, Commentなど複数で利用) :bigint

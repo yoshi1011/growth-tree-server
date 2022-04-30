@@ -6,23 +6,23 @@
 #
 #  id                                              :bigint           not null, primary key
 #  allow_password_change                           :boolean          default(FALSE)
-#  birthday                                        :date
+#  birthday                                        :date             not null
 #  confirmation_sent_at                            :datetime
 #  confirmation_token                              :string
 #  confirmed_at                                    :datetime
-#  email                                           :string
+#  email                                           :string           not null
 #  encrypted_password                              :string           default(""), not null
 #  failed_attempts                                 :integer          default(0), not null
-#  first_name                                      :string
+#  first_name                                      :string           not null
 #  image_url                                       :string
 #  joined_date(入社日)                             :date
-#  last_name                                       :string
+#  last_name                                       :string           not null
 #  locked_at                                       :datetime
 #  provider                                        :string           default("email"), not null
 #  remember_created_at                             :datetime
 #  reset_password_sent_at                          :datetime
 #  reset_password_token                            :string
-#  role(Manager, Employeeなどを区別するための項目) :integer
+#  role(Manager, Employeeなどを区別するための項目) :integer          default("manager"), not null
 #  tokens                                          :json
 #  uid                                             :string           default(""), not null
 #  unconfirmed_email                               :string
@@ -44,6 +44,7 @@
 #
 # Foreign Keys
 #
+#  fk_rails_...  (company_id => companies.id)
 #  fk_rails_...  (manager_id => users.id)
 #
 class User < ActiveRecord::Base
@@ -62,5 +63,7 @@ class User < ActiveRecord::Base
   has_many :assigned_tasks
   has_many :owned_skills
 
-  belongs_to :company
+  belongs_to :company, optional: true
+
+  enum role: [:manager, :employee]
 end

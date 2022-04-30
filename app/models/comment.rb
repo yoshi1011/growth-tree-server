@@ -5,7 +5,7 @@
 # Table name: comments
 #
 #  id                                  :bigint           not null, primary key
-#  content                             :text
+#  content                             :text             not null
 #  created_at                          :datetime         not null
 #  updated_at                          :datetime         not null
 #  assigned_task_id                    :bigint

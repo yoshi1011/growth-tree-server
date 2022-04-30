@@ -3,7 +3,7 @@ skill_point_range = (2..8).map { |i| i * 10 }
 
 10.times.each do |n|
   # 企業・マネージャーの追加
-  company = Company.create!(name: "株式会社#{n}")
+  company = Company.create!(name: "株式会社#{n}", zip_code: "0000000", prefecture: "東京都", city: "港区")
   manager = company.users.build(
     email: "manager_#{n}@example.com", password: "password", first_name: "山田#{n}", last_name: "太郎#{n}",
     birthday: Date.today - [*10000..30000].sample.days, role: "manager", company_id: company.id

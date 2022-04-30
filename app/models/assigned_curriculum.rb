@@ -6,8 +6,8 @@
 #
 #  id                                              :bigint           not null, primary key
 #  completed                                       :boolean          default(FALSE), not null
-#  end_datetime                                    :datetime
-#  start_datetime                                  :datetime
+#  end_datetime                                    :datetime         not null
+#  start_datetime                                  :datetime         not null
 #  created_at                                      :datetime         not null
 #  updated_at                                      :datetime         not null
 #  curriculum_id                                   :bigint
