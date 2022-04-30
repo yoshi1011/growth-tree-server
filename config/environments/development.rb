@@ -73,4 +73,19 @@ Rails.application.configure do
                credentials: true
     end
   end
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    domain: "gmail.com",
+    port: 587,
+    user_name: ENV['GMAIL_ADDRESS'],
+    password: ENV['GMAIL_PASSWORD'],
+    authentication: :plain,
+    enable_starttls_auto: true
+  }
+  # 環境変数でメール送信の有無を切り替えられるようにした
+  config.action_mailer.perform_deliveries = ENV['DISABLED_ACTION_MAILER'] ? false : true
 end
