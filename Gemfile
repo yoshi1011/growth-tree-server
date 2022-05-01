@@ -8,6 +8,8 @@ gem 'rails', '~> 6.1.5'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'bootsnap', '>= 1.4.4', require: false
+# 出力するJSONを定義
+gem 'jbuilder'
 # CORS対応
 gem 'rack-cors'
 # ログ出力をアップデート
