@@ -58,4 +58,11 @@ DeviseTokenAuth.setup do |config|
   # send email, set it to true. (This is a setting for compatibility)
   config.send_confirmation_email = true
   config.default_confirm_success_url = "http://localhost:3000"
+
+  config.cookie_enabled = true
+  config.cookie_name = "_growth-tree-cookie"
+  config.cookie_attributes = {
+    expires: 1.months,
+    httponly: true
+  }
 end

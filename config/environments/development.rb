@@ -68,7 +68,6 @@ Rails.application.configure do
       origins 'localhost:8080', '127.0.0.1:8080'
       resource '*',
                headers: :any,
-               expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
                methods: [:get, :post, :delete, :patch],
                credentials: true
     end
