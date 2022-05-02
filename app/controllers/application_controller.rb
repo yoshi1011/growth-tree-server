@@ -3,6 +3,7 @@ class ApplicationController < ActionController::API
   rescue_from Exception, with: :error_500
   rescue_from ActiveRecord::RecordNotFound, with: :error_404
   rescue_from ActionController::RoutingError, with: :error_404
+  respond_to :json
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   include ActionController::Cookies

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :curriculums
+      resources :missions
+      resources :tasks
     end
   end
 end

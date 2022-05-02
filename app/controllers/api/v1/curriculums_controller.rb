@@ -3,45 +3,23 @@ class Api::V1::CurriculumsController < ApplicationController
   before_action :set_curriculum, only: [:show, :update, :destroy]
 
   def index
-    curriculums = Curriculum.all
-
-    render json: curriculums
+    @curriculums = current_user.company.curriculums
   end
 
-  def show
-    render json: @curriculum
-  end
+  def show; end
 
   def create
-    curriculum = current_user.company.curriculums.build(curriculum_params)
-    if curriculum.valid?
-      curriculum.save
-      render json: curriculum
-    else
-      response = {
-        success: false,
-        errors: curriculum.errors
-      }
-      render status: 400, json: response
-    end
+    @curriculum = current_user.company.curriculums.build(curriculum_params)
+    @curriculum.save!
   end
 
   def update
     @curriculum.assign_attributes(curriculum_params)
-    if @curriculum.valid?
-      @curriculum.save
-      render json: @curriculum
-    else
-      response = {
-        success: false,
-        errors: @curriculum.errors
-      }
-      render status 400, json: response
-    end
+    @curriculum.save!
   end
 
   def destroy
-    @curriculum.destroy
+    @curriculum.destroy!
 
     render json: {status: true, message: "Curriculum delete success"}
   end
