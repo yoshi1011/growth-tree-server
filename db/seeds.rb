@@ -83,7 +83,7 @@ skill_point_range = (2..8).map { |i| i * 10 }
   [*3..10].sample.times.each do |nn|
     employee = company.users.build(
       email: "user_#{n}_#{nn}@example.com", password: "password", first_name: "田中#{nn}", last_name: "一郎#{nn}",
-      birthday: Date.today - [*9000..15000].sample.days, role: "employee", company_id: company.id
+      birthday: Date.today - [*9000..15000].sample.days, role: "employee", company_id: company.id, manager_id: manager.id
     )
     employee.skip_confirmation!
     employee.save!

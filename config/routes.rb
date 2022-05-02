@@ -4,9 +4,15 @@ Rails.application.routes.draw do
   }
   namespace :api do
     namespace :v1 do
+      resources :users do
+        resources :owned_skills, path: 'skills', only: [:create, :update, :destroy]
+      end
       resources :curriculums
-      resources :missions
+      resources :missions do
+        resources :skill_points, path: 'skills', only: [:create, :update, :destroy]
+      end
       resources :tasks
+      resources :skills
     end
   end
 end

@@ -62,8 +62,10 @@ class User < ActiveRecord::Base
   has_many :assigned_missions
   has_many :assigned_tasks
   has_many :owned_skills
+  has_many :employees, class_name: "User", foreign_key: "manager_id"
 
   belongs_to :company, optional: true
+  belongs_to :manager, class_name: "User", optional: true
 
   enum role: [:manager, :employee]
 end
