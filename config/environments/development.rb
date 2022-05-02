@@ -68,11 +68,12 @@ Rails.application.configure do
       origins 'localhost:8080', '127.0.0.1:8080'
       resource '*',
                headers: :any,
-               expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
-               methods: [:get, :post, :options, :delete, :put],
+               methods: [:get, :post, :delete, :patch],
                credentials: true
     end
   end
+
+  config.debug_exception_response_format = :default
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.raise_delivery_errors = true

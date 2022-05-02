@@ -20,6 +20,7 @@
 #  fk_rails_...  (company_id => companies.id)
 #
 class Curriculum < ApplicationRecord
+  has_many :assigned_curriculums, dependent: :destroy
   has_many :set_missions, dependent: :destroy
   has_many :missions, through: :set_missions
   has_many :attachments, as: :source
