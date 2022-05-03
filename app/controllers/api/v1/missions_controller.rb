@@ -21,7 +21,7 @@ class Api::V1::MissionsController < ApplicationController
   def destroy
     @mission.destroy!
 
-    render json: {status: true, message: "mission delete success"}
+    render json: {message: "mission delete success"}
   end
 
   private

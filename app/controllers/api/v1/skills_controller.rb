@@ -21,7 +21,7 @@ class Api::V1::SkillsController < ApplicationController
   def destroy
     @skill.destroy!
 
-    render json: {status: true, message: "skill delete success"}
+    render json: {message: "skill delete success"}
   end
 
   private

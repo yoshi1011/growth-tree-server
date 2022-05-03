@@ -16,7 +16,7 @@ class Api::V1::SkillPointsController < ApplicationController
   def destroy
     @skill_point.destroy!
 
-    render json: {status: true, message: "skill_point delete success"}
+    render json: {message: "skill_point delete success"}
   end
 
   private

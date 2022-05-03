@@ -21,7 +21,7 @@ class Api::V1::CurriculumsController < ApplicationController
   def destroy
     @curriculum.destroy!
 
-    render json: {status: true, message: "Curriculum delete success"}
+    render json: {message: "Curriculum delete success"}
   end
 
   private

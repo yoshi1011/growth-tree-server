@@ -9,11 +9,11 @@ class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
 
   def error_404
-    render json: { success: false, errors: ['Not Found'] }
+    render json: { status: false, errors: ['Not Found'] }
   end
 
   def error_500(error)
-    render json: { success: false, errors: [error] }
+    render json: { status: false, errors: [error] }
   end
 
   def configure_permitted_parameters
