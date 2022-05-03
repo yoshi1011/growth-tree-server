@@ -12,6 +12,10 @@ Rails.application.routes.draw do
         patch '/curriculums/:curriculum_id/update-completed', to: 'assigned_curriculums#update_completed'
         delete '/curriculums/:curriculum_id/unassign-curriculum', to: 'assigned_curriculums#destroy'
         resources :owned_skills, path: 'skills', only: [:create, :update, :destroy]
+
+        resources :assigned_tasks do
+          resources :comments
+        end
       end
       resources :curriculums
       resources :missions do
