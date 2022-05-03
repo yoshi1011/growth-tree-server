@@ -24,6 +24,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class AssignedCurriculum < ApplicationRecord
+  has_many :assigned_missions, dependent: :destroy
+
   belongs_to :curriculum
   belongs_to :employee, class_name: "User", foreign_key: "user_id"
 end

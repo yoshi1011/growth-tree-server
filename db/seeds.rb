@@ -99,28 +99,30 @@ skill_point_range = (2..8).map { |i| i * 10 }
     # 90%の確率でユーザーにカリキュラムをアサインする
     if rand(1..10) > 1
       curriculum = company.curriculums.sample
-      start_datetime = DateTime.now - [*10..50].sample.days
+      start_datetime = Time.now - [*10..50].sample.days
       end_datetime = start_datetime + [*3..12].sample.months
-      employee.assigned_curriculums.create!(
+      assigned_curriculum = employee.assigned_curriculums.create!(
         curriculum_id: curriculum.id, start_datetime: start_datetime, end_datetime: end_datetime
       )
 
       # カリキュラムにセットされたミッションをアサインする
-      curriculum.set_missions.each_with_index do |set_mission, mission_index|
+      curriculum.missions.each_with_index do |mission, mission_index|
         mission_start = start_datetime + mission_index.months
         mission_end = start_datetime + (mission_index + 1).months - 1.days
-        employee.assigned_missions.create!(
-          set_mission_id: set_mission.id,
+        assigned_mission = employee.assigned_missions.create!(
+          assigned_curriculum_id: assigned_curriculum.id,
+          mission_id: mission.id,
           start_datetime: mission_start,
           end_datetime: mission_end
         )
 
         # さらにミッションにセットされたタスクをアサインする
-        set_mission.mission.set_tasks.each_with_index do |set_task, task_index|
+        mission.tasks.each_with_index do |task, task_index|
           task_start = mission_start + (task_index * 3).days
           task_end = mission_start + (task_index * 3 + 3).days
           assigned_task = employee.assigned_tasks.create!(
-            set_task_id: set_task.id,
+            assigned_mission_id: assigned_mission.id,
+            task_id: task.id,
             start_datetime: task_start,
             end_datetime: task_end
           )

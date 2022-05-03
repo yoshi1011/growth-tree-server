@@ -57,10 +57,12 @@ class User < ActiveRecord::Base
          :confirmable,
          :lockable
 
-  has_many :assigned_curriculums
+  has_many :assigned_curriculums, dependent: :destroy
   has_many :curriculums, class_name: "Curriculum", through: :assigned_curriculums
-  has_many :assigned_missions
-  has_many :assigned_tasks
+  has_many :assigned_missions, dependent: :destroy
+  has_many :missions, class_name: "Mission", through: :assigned_missions
+  has_many :assigned_tasks, dependent: :destroy
+  has_many :tasks, class_name: "Task", through: :assigned_tasks
   has_many :owned_skills
   has_many :employees, class_name: "User", foreign_key: "manager_id"
 

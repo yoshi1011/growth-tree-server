@@ -21,6 +21,7 @@
 #  fk_rails_...  (company_id => companies.id)
 #
 class Task < ApplicationRecord
+  has_many :assigned_tasks, dependent: :destroy
   has_many :set_tasks, dependent: :destroy
   has_many :missions, through: :set_tasks
   has_many :attachments, as: :source

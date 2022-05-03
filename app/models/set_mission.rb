@@ -21,8 +21,6 @@
 #  fk_rails_...  (mission_id => missions.id)
 #
 class SetMission < ApplicationRecord
-  has_many :assigned_missions, dependent: :destroy
-
   belongs_to :curriculum
   belongs_to :mission
 end
