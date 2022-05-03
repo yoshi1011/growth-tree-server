@@ -21,7 +21,7 @@ class Api::V1::SkillsController < ApplicationController
   def destroy
     @skill.destroy!
 
-    render json: {status: true, message: "skill delete success"}
+    render json: {message: "skill delete success"}
   end
 
   private
@@ -31,6 +31,6 @@ class Api::V1::SkillsController < ApplicationController
   end
 
   def skill_params
-    params.permit(:name, :description)
+    params.require(:body).permit(:name, :description)
   end
 end

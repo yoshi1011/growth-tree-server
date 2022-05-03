@@ -20,6 +20,7 @@
 #  fk_rails_...  (company_id => companies.id)
 #
 class Mission < ApplicationRecord
+  has_many :assigned_missions, dependent: :destroy
   has_many :set_missions, dependent: :destroy
   has_many :curriculums, through: :set_missions
   has_many :set_tasks, dependent: :destroy

@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 2022_04_24_074447) do
   create_table "assigned_curriculums", force: :cascade do |t|
     t.bigint "curriculum_id"
     t.bigint "user_id", comment: "カリキュラムを割り当てられた従業員のID"
-    t.datetime "start_datetime", null: false
-    t.datetime "end_datetime", null: false
+    t.datetime "start_datetime", default: -> { "now()" }, null: false
+    t.datetime "end_datetime", default: -> { "now()" }, null: false
     t.boolean "completed", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -28,26 +28,30 @@ ActiveRecord::Schema.define(version: 2022_04_24_074447) do
   end
 
   create_table "assigned_missions", force: :cascade do |t|
-    t.bigint "set_mission_id"
+    t.bigint "assigned_curriculum_id"
+    t.bigint "mission_id"
     t.bigint "user_id", comment: "ミッションを割り当てられた従業員のID"
-    t.datetime "start_datetime", null: false
-    t.datetime "end_datetime", null: false
+    t.datetime "start_datetime", default: -> { "now()" }, null: false
+    t.datetime "end_datetime", default: -> { "now()" }, null: false
     t.boolean "completed", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["set_mission_id"], name: "index_assigned_missions_on_set_mission_id"
+    t.index ["assigned_curriculum_id"], name: "index_assigned_missions_on_assigned_curriculum_id"
+    t.index ["mission_id"], name: "index_assigned_missions_on_mission_id"
     t.index ["user_id"], name: "index_assigned_missions_on_user_id"
   end
 
   create_table "assigned_tasks", force: :cascade do |t|
-    t.bigint "set_task_id"
+    t.bigint "assigned_mission_id"
+    t.bigint "task_id"
     t.bigint "user_id", comment: "タスクを割り当てられた従業員のID"
-    t.datetime "start_datetime", null: false
-    t.datetime "end_datetime", null: false
+    t.datetime "start_datetime", default: -> { "now()" }, null: false
+    t.datetime "end_datetime", default: -> { "now()" }, null: false
     t.boolean "completed", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["set_task_id"], name: "index_assigned_tasks_on_set_task_id"
+    t.index ["assigned_mission_id"], name: "index_assigned_tasks_on_assigned_mission_id"
+    t.index ["task_id"], name: "index_assigned_tasks_on_task_id"
     t.index ["user_id"], name: "index_assigned_tasks_on_user_id"
   end
 
@@ -196,9 +200,11 @@ ActiveRecord::Schema.define(version: 2022_04_24_074447) do
 
   add_foreign_key "assigned_curriculums", "curriculums"
   add_foreign_key "assigned_curriculums", "users"
-  add_foreign_key "assigned_missions", "set_missions"
+  add_foreign_key "assigned_missions", "assigned_curriculums"
+  add_foreign_key "assigned_missions", "missions"
   add_foreign_key "assigned_missions", "users"
-  add_foreign_key "assigned_tasks", "set_tasks"
+  add_foreign_key "assigned_tasks", "assigned_missions"
+  add_foreign_key "assigned_tasks", "tasks"
   add_foreign_key "assigned_tasks", "users"
   add_foreign_key "comments", "assigned_tasks"
   add_foreign_key "comments", "users"

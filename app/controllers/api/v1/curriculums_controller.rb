@@ -21,7 +21,7 @@ class Api::V1::CurriculumsController < ApplicationController
   def destroy
     @curriculum.destroy!
 
-    render json: {status: true, message: "Curriculum delete success"}
+    render json: {message: "Curriculum delete success"}
   end
 
   private
@@ -31,6 +31,6 @@ class Api::V1::CurriculumsController < ApplicationController
   end
 
   def curriculum_params
-    params.permit(:name, :description)
+    params.require(:body).permit(:name, :description)
   end
 end

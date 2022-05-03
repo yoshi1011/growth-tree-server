@@ -80,7 +80,7 @@ module DeviseOverrides
     end
 
     def company_params
-      params.permit(:name, :zip_code, :prefecture, :city, :address_line_1, :address_line_2)
+      params.require(:body).permit(:name, :zip_code, :prefecture, :city, :address_line_1, :address_line_2)
     end
   end
 end

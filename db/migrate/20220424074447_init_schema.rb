@@ -73,8 +73,8 @@ class InitSchema < ActiveRecord::Migration[6.1]
       # ユーザーに割り当てられたカリキュラム。個別設定も記録する
       t.references :curriculum, foreign_key: true
       t.references :user, foreign_key: true, comment: "カリキュラムを割り当てられた従業員のID"
-      t.datetime :start_datetime, null: false
-      t.datetime :end_datetime, null: false
+      t.datetime :start_datetime, null: false, default: -> { 'NOW()' }
+      t.datetime :end_datetime, null: false, default: -> { 'NOW()' }
       t.boolean :completed, null: false, default: false
 
       t.timestamps
@@ -101,10 +101,11 @@ class InitSchema < ActiveRecord::Migration[6.1]
     create_table :assigned_missions do |t|
       # ユーザーに割り当てられたミッション。個別設定も記録する
       # ミッションはカリキュラムに設定されたミッション(SetMission)に紐付ける
-      t.references :set_mission, foreign_key: true
+      t.references :assigned_curriculum, foreign_key: true
+      t.references :mission, foreign_key: true
       t.references :user, foreign_key: true, comment: "ミッションを割り当てられた従業員のID"
-      t.datetime :start_datetime, null: false
-      t.datetime :end_datetime, null: false
+      t.datetime :start_datetime, null: false, default: -> { 'NOW()' }
+      t.datetime :end_datetime, null: false, default: -> { 'NOW()' }
       t.boolean :completed, null: false, default: false
 
       t.timestamps
@@ -132,10 +133,11 @@ class InitSchema < ActiveRecord::Migration[6.1]
     create_table :assigned_tasks do |t|
       # ユーザーに割り当てられたタスク。個別設定も記録する。
       # タスクはミッションに設定されたタスク(SetTask)に紐付ける
-      t.references :set_task, foreign_key: true
+      t.references :assigned_mission, foreign_key: true
+      t.references :task, foreign_key: true
       t.references :user, foreign_key: true, comment: "タスクを割り当てられた従業員のID"
-      t.datetime :start_datetime, null: false
-      t.datetime :end_datetime, null: false
+      t.datetime :start_datetime, null: false, default: -> { 'NOW()' }
+      t.datetime :end_datetime, null: false, default: -> { 'NOW()' }
       t.boolean :completed, null: false, default: false
 
       t.timestamps

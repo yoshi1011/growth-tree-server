@@ -16,7 +16,7 @@ class Api::V1::SkillPointsController < ApplicationController
   def destroy
     @skill_point.destroy!
 
-    render json: {status: true, message: "skill_point delete success"}
+    render json: {message: "skill_point delete success"}
   end
 
   private
@@ -27,10 +27,10 @@ class Api::V1::SkillPointsController < ApplicationController
   end
 
   def create_skill_point_params
-    params.permit(:skill_id, :point)
+    params.require(:body).permit(:skill_id, :point)
   end
 
   def update_skill_point_params
-    params.permit(:point)
+    params.require(:body).permit(:point)
   end
 end

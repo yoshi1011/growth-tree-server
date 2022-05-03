@@ -21,7 +21,7 @@ class Api::V1::TasksController < ApplicationController
   def destroy
     @task.destroy!
 
-    render json: {status: true, message: "task delete success"}
+    render json: {message: "task delete success"}
   end
 
   private
@@ -31,6 +31,6 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def task_params
-    params.permit(:name, :description, :must_be_submitted)
+    params.require(:body).permit(:name, :description, :must_be_submitted)
   end
 end

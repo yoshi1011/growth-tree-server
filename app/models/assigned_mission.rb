@@ -10,20 +10,26 @@
 #  start_datetime                                :datetime         not null
 #  created_at                                    :datetime         not null
 #  updated_at                                    :datetime         not null
-#  set_mission_id                                :bigint
+#  assigned_curriculum_id                        :bigint
+#  mission_id                                    :bigint
 #  user_id(ミッションを割り当てられた従業員のID) :bigint
 #
 # Indexes
 #
-#  index_assigned_missions_on_set_mission_id  (set_mission_id)
-#  index_assigned_missions_on_user_id         (user_id)
+#  index_assigned_missions_on_assigned_curriculum_id  (assigned_curriculum_id)
+#  index_assigned_missions_on_mission_id              (mission_id)
+#  index_assigned_missions_on_user_id                 (user_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (set_mission_id => set_missions.id)
+#  fk_rails_...  (assigned_curriculum_id => assigned_curriculums.id)
+#  fk_rails_...  (mission_id => missions.id)
 #  fk_rails_...  (user_id => users.id)
 #
 class AssignedMission < ApplicationRecord
-  belongs_to :set_mission
+  has_many :assigned_tasks, dependent: :destroy
+
+  belongs_to :assigned_curriculum
+  belongs_to :mission
   belongs_to :employee, class_name: "User", foreign_key: "user_id"
 end

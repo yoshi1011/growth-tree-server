@@ -1,0 +1,6 @@
+json.id assigned_mission.id
+json.name assigned_mission.mission.name
+json.description assigned_mission.mission.description
+json.start_datetime assigned_mission.start_datetime
+json.end_datetime assigned_mission.end_datetime
+json.completed assigned_mission.completed
