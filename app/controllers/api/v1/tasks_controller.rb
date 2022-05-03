@@ -31,6 +31,6 @@ class Api::V1::TasksController < ApplicationController
   end
 
   def task_params
-    params.permit(:name, :description, :must_be_submitted)
+    params.require(:body).permit(:name, :description, :must_be_submitted)
   end
 end

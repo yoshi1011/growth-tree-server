@@ -89,4 +89,9 @@ Rails.application.configure do
   }
   # 環境変数でメール送信の有無を切り替えられるようにした
   config.action_mailer.perform_deliveries = ENV['DISABLED_ACTION_MAILER'] ? false : true
+
+  config.rails_semantic_logger.semantic   = false
+  config.rails_semantic_logger.started    = false
+  config.rails_semantic_logger.processing = false
+  config.rails_semantic_logger.rendered   = false
 end

@@ -27,10 +27,10 @@ class Api::V1::OwnedSkillsController < ApplicationController
   end
 
   def create_owned_skill_params
-    params.permit(:skill_id, :point)
+    params.require(:body).permit(:skill_id, :point)
   end
 
   def update_owned_skill_params
-    params.permit(:point)
+    params.require(:body).permit(:point)
   end
 end

@@ -31,6 +31,6 @@ class Api::V1::CurriculumsController < ApplicationController
   end
 
   def curriculum_params
-    params.permit(:name, :description)
+    params.require(:body).permit(:name, :description)
   end
 end

@@ -1,6 +1,7 @@
-json.id assigned_mission.id
-json.name assigned_mission.mission.name
-json.description assigned_mission.mission.description
-json.start_datetime assigned_mission.start_datetime
-json.end_datetime assigned_mission.end_datetime
-json.completed assigned_mission.completed
+json.id assigned_task.id
+json.name assigned_task.task.name
+json.description assigned_task.task.description
+json.must_be_submitted assigned_task.task.must_be_submitted
+json.start_datetime assigned_task.start_datetime
+json.end_datetime assigned_task.end_datetime
+json.completed assigned_task.completed

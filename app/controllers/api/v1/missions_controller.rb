@@ -31,6 +31,6 @@ class Api::V1::MissionsController < ApplicationController
   end
 
   def mission_params
-    params.permit(:name, :description)
+    params.require(:body).permit(:name, :description)
   end
 end
