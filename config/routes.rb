@@ -29,14 +29,17 @@ Rails.application.routes.draw do
           resources :comments
         end
       end
-      resources :curriculums
+      resources :curriculums do
+        post '/missions/:mission_id', to: 'api/v1/set_missions#create'
+        delete '/missions/:mission_id', to: 'api/v1/set_missions#destroy'
+      end
       resources :missions do
+        post '/tasks/:task_id', to: 'api/v1/set_tasks#create'
+        delete '/tasks/:task_id', to: 'api/v1/set_tasks#destroy'
+
         resources :skill_points, path: 'skills', only: [:create, :update, :destroy]
       end
       resources :tasks
-
-      resources :set_missions, only: [:create, :destroy]
-      resources :set_tasks, only: [:create, :destroy]
 
       resources :skills
     end
