@@ -62,9 +62,7 @@ class Api::V1::AssignedCurriculumsController < ApplicationController
   end
 
   def set_assigned_curriculum
-    # APIのわかりやすさを考慮してパス名にはassigned_curriculumを使わず
-    # user_idとcurriculum_idとで指定する方式にした
-    @assigned_curriculum = employee.assigned_curriculums.find_by!(curriculum_id: params[:curriculum_id])
+    @assigned_curriculum = employee.assigned_curriculums.find(params[:curriculum_id])
   end
 
   def assigned_curriculum_params

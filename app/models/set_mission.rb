@@ -23,4 +23,6 @@
 class SetMission < ApplicationRecord
   belongs_to :curriculum
   belongs_to :mission
+
+  validates :curriculum_id, uniqueness: { scope: :mission_id }
 end

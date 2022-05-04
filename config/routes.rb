@@ -15,6 +15,14 @@ Rails.application.routes.draw do
             patch :update_completed
           end
         end
+
+        resources :assigned_missions do
+          member do
+            patch :update_schedule
+            patch :update_completed
+          end
+        end
+
         resources :owned_skills, path: 'skills', only: [:create, :update, :destroy]
 
         resources :assigned_tasks do
@@ -26,6 +34,10 @@ Rails.application.routes.draw do
         resources :skill_points, path: 'skills', only: [:create, :update, :destroy]
       end
       resources :tasks
+
+      resources :set_missions, only: [:create, :destroy]
+      resources :set_tasks, only: [:create, :destroy]
+
       resources :skills
     end
   end

@@ -29,4 +29,12 @@ class Mission < ApplicationRecord
   has_many :attachments, as: :source
 
   belongs_to :company
+
+  def set_task(task)
+    tasks << task
+  end
+
+  def remove_task(task)
+    set_tasks.find_by(task_id: task.id).destroy
+  end
 end

@@ -26,4 +26,12 @@ class Curriculum < ApplicationRecord
   has_many :attachments, as: :source
 
   belongs_to :company
+
+  def set_mission(mission)
+    missions << mission
+  end
+
+  def remove_mission(mission)
+    set_missions.find_by(mission_id: mission.id).destroy
+  end
 end
