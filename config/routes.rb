@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
-    registrations: 'devise_overrides/registrations'
+    registrations: 'devise_overrides/registrations',
+    sessions: 'devise_overrides/sessions',
+    token_validations: 'devise_overrides/token_validations',
   }
   namespace :api do
     namespace :v1 do
@@ -37,7 +39,7 @@ Rails.application.routes.draw do
         post '/tasks/:task_id', to: 'api/v1/set_tasks#create'
         delete '/tasks/:task_id', to: 'api/v1/set_tasks#destroy'
 
-        resources :skill_points, path: 'skills', only: [:create, :update, :destroy]
+        resources :skill_points, path: 'points', only: [:create, :update, :destroy]
       end
       resources :tasks
 

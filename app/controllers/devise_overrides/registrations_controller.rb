@@ -2,7 +2,7 @@ module DeviseOverrides
   class RegistrationsController < DeviseTokenAuth::RegistrationsController
     def create
       # 初回登録時はManagerとCompanyとを同時に作成する必要があるため、元のcreateメソッド内の処理をオーバーライドした
-
+      p params
       # Manager登録情報に基づきbuild
       build_resource
 
@@ -80,7 +80,13 @@ module DeviseOverrides
     end
 
     def company_params
-      params.require(:body).permit(:name, :zip_code, :prefecture, :city, :address_line_1, :address_line_2)
+      params.permit(:name, :zip_code, :prefecture, :city, :address_line_1, :address_line_2)
+    end
+
+    protected
+
+    def render_create_success
+      render 'devise_overrides/registrations'
     end
   end
 end

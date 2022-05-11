@@ -1,8 +1,8 @@
 module DeviseOverrides
-  class SessionsController < DeviseTokenAuth::SessionsController
+  class TokenValidationsController < DeviseTokenAuth::TokenValidationsController
     protected
 
-    def render_create_success
+    def render_validate_token_success
       render 'devise_overrides/sessions'
     end
   end
