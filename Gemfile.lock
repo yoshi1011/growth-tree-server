@@ -60,7 +60,6 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
-    amazing_print (1.4.0)
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
@@ -152,10 +151,6 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.2)
       loofah (~> 2.3)
-    rails_semantic_logger (4.10.0)
-      rack
-      railties (>= 5.1)
-      semantic_logger (~> 4.9)
     railties (6.1.5)
       actionpack (= 6.1.5)
       activesupport (= 6.1.5)
@@ -205,8 +200,6 @@ GEM
       rack (>= 1.1)
       rubocop (>= 1.7.0, < 2.0)
     ruby-progressbar (1.11.0)
-    semantic_logger (4.10.0)
-      concurrent-ruby (~> 1.0)
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
     spring (4.0.0)
@@ -235,7 +228,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  amazing_print (~> 1.4)
   annotate
   bootsnap (>= 1.4.4)
   byebug
@@ -249,7 +241,6 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-cors
   rails (~> 6.1.5)
-  rails_semantic_logger (~> 4.10)
   rspec-rails (~> 5.0.0)
   rubocop-rails
   shoulda-matchers (~> 5.0)
