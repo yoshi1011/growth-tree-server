@@ -1,10 +1,12 @@
 class Api::V1::AssignedTasksController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_assigned_task, only: [:update_schedule, :update_completed, :destroy]
+  before_action :set_assigned_task, only: [:show, :update_schedule, :update_completed, :destroy]
 
   def index
     @assigned_tasks = employee.assigned_tasks
   end
+
+  def show; end
 
   def create
     @assigned_task = employee.assigned_tasks.new(assigned_task_params)

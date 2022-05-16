@@ -1,10 +1,12 @@
 class Api::V1::AssignedMissionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_assigned_mission, only: [:update_schedule, :update_completed, :destroy]
+  before_action :set_assigned_mission, only: [:show, :update_schedule, :update_completed, :destroy]
 
   def index
     @assigned_missions = employee.assigned_missions
   end
+
+  def show; end
 
   def create
     # TODO: 同時にAssignedTaskを作成する処理は別に記述する

@@ -70,4 +70,8 @@ class User < ActiveRecord::Base
   belongs_to :manager, class_name: "User", optional: true
 
   enum role: [:manager, :employee]
+
+  def name
+    "#{first_name} #{last_name}"
+  end
 end

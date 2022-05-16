@@ -26,6 +26,7 @@ class Mission < ApplicationRecord
   has_many :set_tasks, dependent: :destroy
   has_many :tasks, through: :set_tasks
   has_many :skill_points, dependent: :destroy
+  has_many :skills, through: :skill_points
   has_many :attachments, as: :source
 
   belongs_to :company

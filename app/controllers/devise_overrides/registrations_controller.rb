@@ -2,7 +2,6 @@ module DeviseOverrides
   class RegistrationsController < DeviseTokenAuth::RegistrationsController
     def create
       # 初回登録時はManagerとCompanyとを同時に作成する必要があるため、元のcreateメソッド内の処理をオーバーライドした
-      p params
       # Manager登録情報に基づきbuild
       build_resource
 

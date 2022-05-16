@@ -1,10 +1,12 @@
 class Api::V1::AssignedCurriculumsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_assigned_curriculum, only: [:update_schedule, :update_completed, :destroy]
+  before_action :set_assigned_curriculum, only: [:show, :update_schedule, :update_completed, :destroy]
 
   def index
     @assigned_curriculums = employee.assigned_curriculums
   end
+
+  def show; end
 
   def create
     # TODO: 同時にAssignedMission, AssignedTaskを作成する処理は別に記述する

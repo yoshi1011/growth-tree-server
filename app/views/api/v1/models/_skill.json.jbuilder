@@ -1,1 +1,3 @@
-json.extract! skill, :id, :name, :description
+json.id skill.id
+json.name skill.name
+json.description skill.description

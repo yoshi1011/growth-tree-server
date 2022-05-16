@@ -1,1 +1,1 @@
-json.array! @curriculums, partial: 'api/v1/models/curriculum', curriculum: @curriculum
+json.array! @curriculums, partial: 'api/v1/models/curriculum', as: :curriculum

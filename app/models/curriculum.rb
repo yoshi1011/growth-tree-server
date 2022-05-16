@@ -21,6 +21,7 @@
 #
 class Curriculum < ApplicationRecord
   has_many :assigned_curriculums, dependent: :destroy
+  has_many :employees, through: :assigned_curriculums
   has_many :set_missions, dependent: :destroy
   has_many :missions, through: :set_missions
   has_many :attachments, as: :source
