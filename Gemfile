@@ -12,9 +12,6 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'jbuilder'
 # CORS対応
 gem 'rack-cors'
-# ログ出力をアップデート
-gem 'amazing_print', '~> 1.4'
-gem 'rails_semantic_logger', '~> 4.10'
 
 # ログイン認証
 gem 'devise', '~> 4.8'

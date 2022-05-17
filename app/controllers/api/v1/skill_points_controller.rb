@@ -23,7 +23,7 @@ class Api::V1::SkillPointsController < ApplicationController
 
   def set_skill_point
     mission = current_user.company.missions.find(params[:mission_id])
-    @skill_point = mission.skill_points.find_by!(skill_id: params[:id])
+    @skill_point = mission.skill_points.find(params[:id])
   end
 
   def create_skill_point_params

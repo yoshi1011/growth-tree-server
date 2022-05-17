@@ -23,4 +23,6 @@
 class SetTask < ApplicationRecord
   belongs_to :mission
   belongs_to :task
+
+  validates :mission_id, uniqueness: { scope: :task_id }
 end

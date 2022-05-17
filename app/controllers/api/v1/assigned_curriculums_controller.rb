@@ -1,10 +1,12 @@
 class Api::V1::AssignedCurriculumsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_assigned_curriculum, only: [:update_schedule, :update_completed, :destroy]
+  before_action :set_assigned_curriculum, only: [:show, :update_schedule, :update_completed, :destroy]
 
   def index
     @assigned_curriculums = employee.assigned_curriculums
   end
+
+  def show; end
 
   def create
     # TODO: 同時にAssignedMission, AssignedTaskを作成する処理は別に記述する
@@ -62,9 +64,7 @@ class Api::V1::AssignedCurriculumsController < ApplicationController
   end
 
   def set_assigned_curriculum
-    # APIのわかりやすさを考慮してパス名にはassigned_curriculumを使わず
-    # user_idとcurriculum_idとで指定する方式にした
-    @assigned_curriculum = employee.assigned_curriculums.find_by!(curriculum_id: params[:curriculum_id])
+    @assigned_curriculum = employee.assigned_curriculums.find(params[:curriculum_id])
   end
 
   def assigned_curriculum_params
