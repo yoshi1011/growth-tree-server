@@ -5,6 +5,7 @@
 # Table name: skills
 #
 #  id                                   :bigint           not null, primary key
+#  color                                :integer          default("gray"), not null
 #  description                          :text
 #  name                                 :string           not null
 #  created_at                           :datetime         not null
@@ -21,7 +22,10 @@
 #
 class Skill < ApplicationRecord
   has_many :skill_points, dependent: :destroy
-  has_many :owned_skills
+  has_many :owned_skills, dependent: :destroy
+  has_many :users, through: :owned_skills
 
   belongs_to :company
+
+  enum color: [:black, :red, :yellow, :blue, :green, :gray]
 end
