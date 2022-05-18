@@ -51,10 +51,10 @@ skill_point_range = (2..8).map { |i| i * 10 }
   end
 
   # スキルを作成する
-  company.skills.create!(name: "Ruby", description: "Rubyです")
-  company.skills.create!(name: "Ruby on Rails", description: "Ruby on Railsです")
-  company.skills.create!(name: "JavaScript", description: "JavaScriptです")
-  company.skills.create!(name: "Flutter", description: "Flutterです")
+  company.skills.create!(name: "Ruby", description: "Rubyです", color: :red)
+  company.skills.create!(name: "Ruby on Rails", description: "Ruby on Railsです", color: :red)
+  company.skills.create!(name: "JavaScript", description: "JavaScriptです", color: :yellow)
+  company.skills.create!(name: "Flutter", description: "Flutterです", color: :blue)
   # あえてdescription書かない
   company.skills.create!(name: "React", description: "")
 
