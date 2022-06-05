@@ -18,6 +18,9 @@
 !/tmp/pids/
 !/tmp/pids/.keep
 
+/public/tmp
+/public/uploads
+
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.

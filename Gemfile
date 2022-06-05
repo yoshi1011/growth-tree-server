@@ -21,6 +21,10 @@ gem 'devise_token_auth', '~> 1.2'
 # https://qiita.com/jnchito/items/4ef331281f0050428716
 gem 'net-smtp'
 
+gem 'carrierwave', '~> 2.0'
+gem 'carrierwave-base64'
+gem 'fog-aws'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 5.0.0'

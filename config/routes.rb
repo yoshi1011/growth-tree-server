@@ -7,8 +7,14 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :users do
+        collection do
+          patch :update_image
+          patch :update_login_setting
+          patch :update_profile_setting
+        end
+
         member do
-          post :update_role
+          patch :update_role
         end
 
         resources :assigned_curriculums do

@@ -49,6 +49,9 @@
 #
 class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
+  # フロントエンド側からBASE64データで画像を受信するためcarrierwave-base64を導入し実装
+  mount_base64_uploader :image_url, AccountImageUploader
+
   devise :database_authenticatable,
          :registerable,
          :recoverable,

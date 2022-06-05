@@ -1,3 +1,4 @@
+json.id @resource.id
 json.email @resource.email
 json.first_name @resource.first_name
 json.last_name @resource.last_name
